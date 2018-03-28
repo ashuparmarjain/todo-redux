@@ -2,19 +2,21 @@ import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import {completedTodo,deleteTodo,editTodo} from '../actions/action.js';
 
+
  class ToDoList extends Component{
 	render(){
 		const todoList = this.props.todolist.todo.slice(0).reverse().map((data,index) => {
 			return(
-					<li key={index} className={!data.status && 'done'} className={(!data.status)?"done" :"not-done"}>
-					
+				
+					<li key={index} className={(!data.status)?"done" :"not-done"}>
 						<span onClick={()=>{this.props.taskDone(index)}}>
 							<i className={(!data.status)?"fa fa-check" :"fa fa-square-o"} aria-hidden="true"></i>
 						</span>
-						<p className='test'>{data.note}</p>
+						<p>{data.note}</p>
 						<span onClick={()=>{this.props.deleteTask(index)}}><i className="fa fa-trash-o" aria-hidden="true"></i></span>
 						{(data.status) && <span onClick={()=>this.props.editTodo(index)}><i className="fa fa-pencil" aria-hidden="true"></i></span>}
 					</li>
+				
 				)
 		
 		});
@@ -22,7 +24,7 @@ import {completedTodo,deleteTodo,editTodo} from '../actions/action.js';
 		return (
 				<div className="app-tasks">
 					<ul>
-						{todoList}			
+							{todoList}			
 					</ul>
 				</div>	
 		)

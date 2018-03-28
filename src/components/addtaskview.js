@@ -1,8 +1,11 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import {toggleView,addingTodo,addTodo} from '../actions/action.js';
-
 class AddTaskView extends Component{
+
+	componentDidMount(){
+		this.nameInput.focus();
+	}	
 
 	render(){
 		return (
@@ -13,15 +16,14 @@ class AddTaskView extends Component{
 						</div>					
 						<div className="app-addTask-content">
 							<label>Add Note</label>
-							<input type="text" name="task" value={this.props.newTodo} onChange = {(e)=>this.props.addingNewTodo(e.target.value)} />
-							<span className="app-errorMsg">Cannot be empty</span>
+							<input ref={(e) => { this.nameInput = e; }}  type="text" name="task" value={this.props.newTodo} onChange = {(e)=>this.props.addingNewTodo(e.target.value)} />
+							{ this.props.isError &&<span className="app-errorMsg">Cannot be empty</span>}
 						</div>
 						<div className="app-addTask-footer">
 							<button onClick = {this.props.addTodo}> Add Task </button>
 						</div>		
 					</div>								
 				</div>
-
 			)
 	}
 }
@@ -35,7 +37,7 @@ const mapDispatchToProps = (dispatch)=>{
 }
 
 const mapStateToProps = (state) => {
-	return {newTodo : state.newTodo}
+	return {newTodo : state.newTodo,isError:state.isError}
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(AddTaskView);
